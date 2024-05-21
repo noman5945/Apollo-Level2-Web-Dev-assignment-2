@@ -35,18 +35,29 @@ const createNewProduct=async(req:Request,res:Response)=>{
 }
 
 /**
- * COntroller Method to get all products from database
- * @param req No input needed since this method fetches everything
+ * COntroller Method to get all products from database.If there is a query value passed then it fetches that specific value
+ * @param req No input needed since this method fetches everything if no query given.
  * @param res Returns a result object
  */
 const getAllProducts=async(req:Request,res:Response)=>{
     try {
-        const result =await ProductServices.getAllProductFromDB()
-        res.status(200).send({
-            success:true,
-            messege:"Products fetched successfully!",
-            data:result
-        })
+        if(typeof req.query.searchTerm!=='undefined'){
+            const keyword=req.query.searchTerm
+            const result=await ProductServices.searchProductByKeywordfromDB(keyword as string)
+            res.status(200).send({
+                success: true,
+                message: `Products matching search term '${keyword}' fetched successfully!`,
+                data:result
+            })
+        }else{
+            const result =await ProductServices.getAllProductFromDB()
+            res.status(200).send({
+                success:true,
+                messege:"Products fetched successfully!",
+                data:result
+            })
+        }
+        
     } catch (error:any) {
         res.status(500).send({
             succsess:false,
@@ -129,6 +140,7 @@ const deleteProductByID=async(req:Request,res:Response)=>{
 
 const searchProductByKeyword=async(req:Request,res:Response)=>{
     try {
+        console.log(req.query+" serch meth")
         const keyword=req.query.searchTerm
         const result=await ProductServices.searchProductByKeywordfromDB(keyword as string)
         res.status(200).send({

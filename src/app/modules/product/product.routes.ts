@@ -13,6 +13,6 @@ routes.put('/:productId',ProductControllers.upsertProductByID)
 
 routes.delete('/:productId',ProductControllers.deleteProductByID)
 
-routes.get('/',ProductControllers.searchProductByKeyword)
+routes.get('/search/',ProductControllers.searchProductByKeyword)
 
 export const ProductRoutes=routes

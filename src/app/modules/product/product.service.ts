@@ -59,10 +59,11 @@ const deleteProductByIDfromDB=async(id:string)=>{
 }
 
 const searchProductByKeywordfromDB=async(keyword:string)=>{
-    console.log(keyword)
+    
     const query={
         tags:{
-            '$regex':keyword
+            '$regex':keyword,
+            '$options':'i'
         }
     }
     const result=await Product.find(query)
