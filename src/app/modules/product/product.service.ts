@@ -34,9 +34,22 @@ const getProductByIDfromDB=async(id:string)=>{
     const result=await Product.findOne(query)
     return result
 }
+/**
+ * Method to update then insert updated data by ID.This method employes 'PUT' method
+ * @param id ID of the product to be updated
+ * @param newData Data of type TProduct having the updated property
+ * @returns Updated data
+ */
+const upsertProductByIDfromDB=async(id:string,newData:TProduct)=>{
+    const filter={productId:id}
+    const updatedData:TProduct=newData
+    const result=await Product.findOneAndUpdate(filter,updatedData,{upsert:true})
+    return result
+}
 
 export const ProductServices={
     createNewProductIntoDB,
     getAllProductFromDB,
-    getProductByIDfromDB
+    getProductByIDfromDB,
+    upsertProductByIDfromDB
 }

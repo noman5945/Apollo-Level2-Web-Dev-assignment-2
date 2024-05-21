@@ -74,8 +74,44 @@ const getProductByID=async(req:Request,res:Response)=>{
     }
 }
 
+
+/**
+ * Method to update product by ID. This method takes whole product info as request body and ID of the product as request param.
+ * @param req Body:TProduct type data to update, param:productID 
+ * @param res update then inserted data
+ */
+const upsertProductByID=async(req:Request,res:Response)=>{
+    try {
+        const updateID=req.params.productId
+        const updatedData=req.body
+        const {error,value}=productValidatorSchema.validate(updatedData)
+        if(error){
+            res.status(500).send({
+                succsess:false,
+                messege:"Error occured while updating product(Joi).Some fields maybe missing",
+                error:error.details
+            })
+        }else{
+            const result=await ProductServices.upsertProductByIDfromDB(updateID,value)
+            res.send({
+                success:true,
+                message:"Product updated successfully!",
+                data:result
+            })
+        }
+        
+    } catch (error:any) {
+        res.status(500).send({
+            succsess:false,
+            messege:error.message||"Error occured while updating the product",
+            error:error
+        })
+    }
+}
+
 export const ProductControllers={
     createNewProduct,
     getAllProducts,
-    getProductByID
+    getProductByID,
+    upsertProductByID
 }

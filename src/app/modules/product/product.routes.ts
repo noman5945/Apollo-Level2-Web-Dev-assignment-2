@@ -9,4 +9,6 @@ routes.get('/',ProductControllers.getAllProducts)
 
 routes.get('/:productId',ProductControllers.getProductByID)
 
+routes.put('/:productId',ProductControllers.upsertProductByID)
+
 export const ProductRoutes=routes
