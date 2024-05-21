@@ -93,7 +93,7 @@ const upsertProductByID=async(req:Request,res:Response)=>{
             })
         }else{
             const result=await ProductServices.upsertProductByIDfromDB(updateID,value)
-            res.send({
+            res.status(200).send({
                 success:true,
                 message:"Product updated successfully!",
                 data:result
@@ -109,9 +109,28 @@ const upsertProductByID=async(req:Request,res:Response)=>{
     }
 }
 
+const deleteProductByID=async(req:Request,res:Response)=>{
+    try {
+        const deleteID=req.params.productId;
+        const result=await ProductServices.deleteProductByIDfromDB(deleteID)
+        res.status(200).send({
+            success:true,
+            message:"Product deleted successfully!",
+            data:result
+        })
+    } catch (error:any) {
+        res.status(500).send({
+            succsess:false,
+            messege:error.message||"Error occured while deleting the product",
+            error:error
+        })
+    }
+}
+
 export const ProductControllers={
     createNewProduct,
     getAllProducts,
     getProductByID,
-    upsertProductByID
+    upsertProductByID,
+    deleteProductByID
 }

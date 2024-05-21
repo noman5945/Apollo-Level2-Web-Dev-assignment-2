@@ -47,9 +47,21 @@ const upsertProductByIDfromDB=async(id:string,newData:TProduct)=>{
     return result
 }
 
+/**
+ * Method to delete product by ID 
+ * @param id 
+ * @returns 
+ */
+const deleteProductByIDfromDB=async(id:string)=>{
+    const filter={productId:id}
+    const result=await Product.findOneAndDelete(filter)
+    return result
+}
+
 export const ProductServices={
     createNewProductIntoDB,
     getAllProductFromDB,
     getProductByIDfromDB,
-    upsertProductByIDfromDB
+    upsertProductByIDfromDB,
+    deleteProductByIDfromDB
 }

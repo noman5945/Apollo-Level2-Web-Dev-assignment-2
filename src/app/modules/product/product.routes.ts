@@ -11,4 +11,6 @@ routes.get('/:productId',ProductControllers.getProductByID)
 
 routes.put('/:productId',ProductControllers.upsertProductByID)
 
+routes.delete('/:productId',ProductControllers.deleteProductByID)
+
 export const ProductRoutes=routes
