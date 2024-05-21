@@ -16,7 +16,7 @@ const createOrderIntoDB=async(orderData:TOrder)=>{
     const product=new Product()
     const existingProduct=await product.isExists(orderData.productId)
     if(!existingProduct){
-        throw new Error('Such product does not exists')
+        throw new Error('Such product does not exist')
     }
     if(!existingProduct.inventory.inStock){
         throw new Error('Sorry. Product out of stock')
@@ -28,11 +28,22 @@ const createOrderIntoDB=async(orderData:TOrder)=>{
     }
     await ProductServices.upsertProductByIDfromDB(order.productId,existingProduct)
     const result = await order.save()
-
-
     return result
 }
 
+const getOrderByEmailfromDB=async(email:string)=>{
+    
+    const orders=await Order.find({email:email})
+    return orders
+}
+
+const getAllOrdersfromDB=async()=>{
+    const orders=await Order.find({})
+    return orders
+}
+
 export const OrderService={
-    createOrderIntoDB
+    createOrderIntoDB,
+    getOrderByEmailfromDB,
+    getAllOrdersfromDB
 }
