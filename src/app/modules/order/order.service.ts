@@ -4,7 +4,7 @@ import { TOrder } from "./order.interface";
 import { Order } from "./order.model";
 
 /**
- * Method to create order and insert into DB
+ * Method to create order then subtract the product qty from inventory and insert into DB
  * @param orderData - Newly created Order document 
  * @returns 
  */
@@ -32,7 +32,7 @@ const createOrderIntoDB=async(orderData:TOrder)=>{
 }
 
 const getOrderByEmailfromDB=async(email:string)=>{
-    
+
     const orders=await Order.find({email:email})
     return orders
 }

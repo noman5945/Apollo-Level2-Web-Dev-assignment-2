@@ -13,7 +13,13 @@ app.use('/api/orders',OrderRouters)
 
 //APP SHOW RUNNING
 app.get('/',(req:Request,res:Response)=>{
-    console.log("Ecommerce site backend Running")
+    res.send("Ecommerce site backend Running")
 })
 
+app.all("*",(req:Request,res:Response)=>{
+    res.status(400).send({
+      succsess:false,
+      message:"Route not found"
+    })
+  })
 export default app
