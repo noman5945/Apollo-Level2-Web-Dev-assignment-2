@@ -31,6 +31,10 @@ const getAllProductFromDB=async()=>{
  */
 const getProductByIDfromDB=async(id:string)=>{
     const query={productId:id}
+    const product=new Product()
+    if(!await product.isExists(id)){
+        throw new Error('Product with that ID doesent exist')
+    }
     const result=await Product.findOne(query)
     return result
 }
