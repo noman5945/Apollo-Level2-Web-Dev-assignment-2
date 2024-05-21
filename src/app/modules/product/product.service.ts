@@ -1,6 +1,11 @@
 import { TProduct } from "./product.interface";
 import { Product } from "./product.model";
 
+/**
+ * Method to insert new product into Database
+ * @param {TProduct} productData Which is the newly created product
+ * @returns Object of inserted data
+ */
 const createNewProductIntoDB=async(productData:TProduct)=>{
         const product=new Product(productData)
         if(await product.isExists(product.productId)){
@@ -10,6 +15,16 @@ const createNewProductIntoDB=async(productData:TProduct)=>{
         return result
 }
 
+/**
+ * Method to get all data from database
+ * @returns {Array} Array of all data  
+ */
+const getAllProductFromDB=async()=>{
+    const result=await Product.find({})
+    return result
+}
+
 export const ProductServices={
-    createNewProductIntoDB
+    createNewProductIntoDB,
+    getAllProductFromDB
 }

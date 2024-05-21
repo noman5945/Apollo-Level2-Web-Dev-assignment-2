@@ -5,4 +5,6 @@ const routes=express.Router()
 
 routes.post('/create-product',ProductControllers.createNewProduct)
 
+routes.get('/',ProductControllers.getAllProducts)
+
 export const ProductRoutes=routes
