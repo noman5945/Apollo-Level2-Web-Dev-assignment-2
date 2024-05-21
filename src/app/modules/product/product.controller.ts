@@ -127,10 +127,29 @@ const deleteProductByID=async(req:Request,res:Response)=>{
     }
 }
 
+const searchProductByKeyword=async(req:Request,res:Response)=>{
+    try {
+        const keyword=req.query.searchTerm
+        const result=await ProductServices.searchProductByKeywordfromDB(keyword as string)
+        res.status(200).send({
+            success: true,
+            message: `Products matching search term '${keyword}' fetched successfully!`,
+            data:result
+        })
+    } catch (error:any) {
+        res.status(500).send({
+            succsess:false,
+            messege:error.message||"Error occured while fetching the product",
+            error:error
+        })
+    }
+}
+
 export const ProductControllers={
     createNewProduct,
     getAllProducts,
     getProductByID,
     upsertProductByID,
-    deleteProductByID
+    deleteProductByID,
+    searchProductByKeyword
 }

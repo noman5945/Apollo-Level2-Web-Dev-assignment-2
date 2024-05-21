@@ -58,10 +58,22 @@ const deleteProductByIDfromDB=async(id:string)=>{
     return result
 }
 
+const searchProductByKeywordfromDB=async(keyword:string)=>{
+    console.log(keyword)
+    const query={
+        tags:{
+            '$regex':keyword
+        }
+    }
+    const result=await Product.find(query)
+    return result
+}
+
 export const ProductServices={
     createNewProductIntoDB,
     getAllProductFromDB,
     getProductByIDfromDB,
     upsertProductByIDfromDB,
-    deleteProductByIDfromDB
+    deleteProductByIDfromDB,
+    searchProductByKeywordfromDB
 }
