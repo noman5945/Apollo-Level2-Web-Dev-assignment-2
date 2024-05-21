@@ -22,4 +22,9 @@ const productSchema=new Schema<TProduct>({
     inventory:{type:inventorySchema,required:true}
 })
 
-export const Product=model<TProduct,ProductModel>('ProductSchema',productSchema)
+productSchema.methods.isExists=async function (id:string) {
+    const existingData=Product.findOne({productId:id})
+    return existingData
+}
+
+export const Product=model<TProduct,ProductModel>('Product',productSchema)

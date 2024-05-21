@@ -21,4 +21,12 @@ export type TProduct={
     inventory:TInventory;
 }
 
-export type ProductModel=Model<TProduct>
+/**
+ * Product custom instance methods
+ */
+
+export type ProductMethods={
+    isExists(id:string):Promise<TProduct|null>
+}
+
+export type ProductModel=Model<TProduct,Record<string,never>,ProductMethods>
