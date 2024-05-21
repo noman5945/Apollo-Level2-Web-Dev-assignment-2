@@ -24,7 +24,19 @@ const getAllProductFromDB=async()=>{
     return result
 }
 
+/**
+ * Method to get Product by ID
+ * @param id ID of the quering Product 
+ * @returns The product object
+ */
+const getProductByIDfromDB=async(id:string)=>{
+    const query={productId:id}
+    const result=await Product.findOne(query)
+    return result
+}
+
 export const ProductServices={
     createNewProductIntoDB,
-    getAllProductFromDB
+    getAllProductFromDB,
+    getProductByIDfromDB
 }

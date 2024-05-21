@@ -7,4 +7,6 @@ routes.post('/create-product',ProductControllers.createNewProduct)
 
 routes.get('/',ProductControllers.getAllProducts)
 
+routes.get('/:productId',ProductControllers.getProductByID)
+
 export const ProductRoutes=routes
