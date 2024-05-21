@@ -58,6 +58,11 @@ const deleteProductByIDfromDB=async(id:string)=>{
     return result
 }
 
+/**
+ * Method to search items by 'searchTerm' (keyword) given as query in the request.The method serches the 'tags' Array of the data and fetches the datas almost matching the tags.Here '$regex' is used for searching and '$options:i' to ignore case sensitivity.. 
+ * @param keyword - keyword to search
+ * @returns 
+ */
 const searchProductByKeywordfromDB=async(keyword:string)=>{
     
     const query={

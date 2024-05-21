@@ -140,7 +140,6 @@ const deleteProductByID=async(req:Request,res:Response)=>{
 
 const searchProductByKeyword=async(req:Request,res:Response)=>{
     try {
-        console.log(req.query+" serch meth")
         const keyword=req.query.searchTerm
         const result=await ProductServices.searchProductByKeywordfromDB(keyword as string)
         res.status(200).send({
